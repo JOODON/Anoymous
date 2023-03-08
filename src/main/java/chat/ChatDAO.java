@@ -45,13 +45,37 @@ public class ChatDAO {
             e.printStackTrace();
         }finally {
             try {
+
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
+
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
         return chatList;
     }
+    public int submit(String chatName,String chatContent){
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        String sql="INSERT INTO CHAT VALUES (?,?,now())";
+        try {
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,chatName);
+            ps.setString(2,chatContent);
+            return ps.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try{
 
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
 }
