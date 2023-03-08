@@ -9,7 +9,7 @@ import java.io.IOException;
 public class ChatSubmitServlet extends HttpServlet {
     private static final long serialVersionUID=1L;
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=UTF-8");
 
@@ -17,11 +17,12 @@ public class ChatSubmitServlet extends HttpServlet {
         String chatContent=request.getParameter("chatContent");
 
         if (chatName == null || chatContent == null || chatName.equals("") || chatContent.equals("")){
-            response.getWriter().write(0);
+            response.getWriter().write("0");
             //오류가 날 경우에는 0이라는 값을 통해서 리턴해주도록 함
         }
         else {
-            response.getWriter().write(new ChatDAO().submit(chatName,chatContent)+" ");
+            response.getWriter().write(new ChatDAO().submit(chatName,chatContent)+"");
         }
     }
+
 }

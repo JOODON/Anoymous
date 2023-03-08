@@ -26,7 +26,7 @@ public class ChatDAO {
         ArrayList<Chat> chatList=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
-        String sql="SELECT * FROM CHAT WHERE chatTime > ? order By ChatTime";
+        String sql="SELECT * FROM CHAT WHERE chatTime > ? order By chatTime";
         try {
 
             ps=conn.prepareStatement(sql);
