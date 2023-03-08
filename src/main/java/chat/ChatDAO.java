@@ -58,7 +58,7 @@ public class ChatDAO {
     public int submit(String chatName,String chatContent){
         PreparedStatement ps=null;
         ResultSet rs=null;
-        String sql="INSERT INTO CHAT VALUES (?,?,now())";
+        String sql="INSERT INTO chat VALUES (?,?,now())";
         try {
             ps=conn.prepareStatement(sql);
             ps.setString(1,chatName);
