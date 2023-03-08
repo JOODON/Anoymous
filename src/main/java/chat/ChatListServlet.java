@@ -10,12 +10,15 @@ import java.util.Date;
 
 @WebServlet(name = "ChatListServlet", value = "/ChatListServlet")
 public class ChatListServlet extends HttpServlet {
+
+    private static final long serialVersionUID=1L;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=UTF-8");
 
         String listType=request.getParameter("listType");
+
         if (listType == null || listType.equals("")){
             response.getWriter().write("");
         }
@@ -31,8 +34,8 @@ public class ChatListServlet extends HttpServlet {
         for (int i=0; i<chatList.size();i++){
             result.append("[{\"value\":\"" + chatList.get(i).getChatName()+"\"},");
             result.append("{\"value\":\"" + chatList.get(i).getChatContent()+"\"},");
-            result.append("{\"value\":\"" +chatList.get(i).getChatTime()+"\"}],");
-            if ( i != chatList.size()-1){
+            result.append("{\"value\":\"" +chatList.get(i).getChatTime()+"\"}]");
+            if (i != chatList.size()-1){
                 result.append(",");
             }
             result.append("]}");
