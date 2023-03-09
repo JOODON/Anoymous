@@ -26,7 +26,7 @@ public class ChatDAO {
         ArrayList<Chat> chatList=null;
         PreparedStatement ps=null;
         ResultSet rs=null;
-        String sql="SELECT * FROM CHAT WHERE chatTime > ? order By chatTime";
+        String sql="SELECT * FROM CHAT WHERE chatTime < ? order By chatTime";
         try {
 
             ps=conn.prepareStatement(sql);
@@ -35,11 +35,14 @@ public class ChatDAO {
 
             chatList=new ArrayList<>();
             while (rs.next()){
+
                 Chat chat=new Chat();
                 chat.setChatName(rs.getString("chatName"));
-                chat.setChatContent(rs.getString("chatContent"));
-                chat.setChatTime("chatTime");
+                chat.setChatContent(rs.getString("chatContent").replaceAll("","&nbsp;")
+                        .replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n","</br>"));
+                chat.setChatTime(rs.getString("chatTime"));
                 chatList.add(chat);
+
             }
         }catch (Exception e){
             e.printStackTrace();

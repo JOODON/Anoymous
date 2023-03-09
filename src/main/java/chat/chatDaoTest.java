@@ -7,8 +7,9 @@ public class chatDaoTest {
     public static void main(String[] args) {
 
         ChatDAO chatDAO=new ChatDAO();
-        String a=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        chatDAO.getChatList(a);
+        Date date=new Date();
+        System.out.println(chatDAO.getChatList("2023-3-9"));
+
 
     }
 }
