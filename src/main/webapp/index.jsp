@@ -15,6 +15,8 @@
     </script>
     <script src="js/bootstrap.js"></script>
     <script>
+        let lastId=0;
+
         function submitFunction(){
             var charName= $("#chatName").val();
             var chatContent= $("#chatContent").val();
@@ -48,17 +50,20 @@
         }
         function chatListFunction(type){
             $.ajax({
-                type: "POST",
-                url : "./ChatListServlet",
+                type:"POST",
+                url :"./ChatListServlet",
                 data: {
                     listType:type,
                 },
                 success:function(data){
+                    if(data == null || data === "") return;
+                    //없으면 끊어주는 부분
                     let parsed =JSON.parse(data);
                     let result=parsed.result;//자바에서 result 가져오기
                     for(let i=0; i< result.length; i++){
                         addChat(result[i][0].value,result[i][1].value,result[i][2].value);
                     }
+                     lastId=Number(parsed.last);
                 }
             });
         }
@@ -80,7 +85,14 @@
                 '</div>'+
                 '<hr>'
             );
+            //상단으로 옮겨주기!
         };
+        function getInfiniteChat(){
+            setInterval(function (){
+                chatListFunction(lastId);
+            },1000);
+        }
+
     </script>
 </head>
 <body>
@@ -132,6 +144,11 @@
             <strong>데이터 베이스 오류가 발생했습니다.</strong>
         </div>
     </div>
-<button type="button" class="btn btn-default pull-right" onclick="chatListFunction('today')">추가</button>
+    <script>
+        $(document).ready(function (){
+            chatListFunction('ten');
+            getInfiniteChat();
+        });
+    </script>
 </body>
 </html>
